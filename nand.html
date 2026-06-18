@@ -4,30 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NAND 深度追踪 · Storage Dashboard</title>
-<style>
-:root{--bg:#0a0e17;--card:#111827;--border:#1e293b;--text:#f1f5f9;--sub:#94a3b8;--muted:#64748b;--blue:#3b82f6;--cyan:#06b6d4;--green:#10b981;--red:#ef4444;--yellow:#f59e0b;--purple:#8b5cf6}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-a{color:inherit;text-decoration:none}
-.nav{background:rgba(17,24,39,.95);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
-.brand{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700}
-.brand-i{width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.nav-links{display:flex;gap:4px}
-.nav-link{padding:8px 16px;border-radius:8px;color:var(--sub);font-size:14px;font-weight:500;transition:.2s}
-.nav-link:hover,.nav-link.active{color:var(--blue);background:rgba(59,130,246,.12)}
-.nav-right{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--muted)}
-.badge{background:var(--green);color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
-.wrap{max-width:1600px;margin:0 auto;padding:24px}
-.sh{margin-bottom:20px}.st{font-size:20px;font-weight:700}.ss{font-size:13px;color:var(--muted)}
-.cgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px}
-.cc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:.2s}
-.cc:hover{border-color:rgba(59,130,246,.2);box-shadow:0 8px 32px rgba(0,0,0,.3)}
-.cch{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.ct{font-size:15px;font-weight:600}.cb{font-size:11px;color:var(--muted);background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px}
-.cbox{width:100%;height:360px}.cbox.tall{height:480px}
-.foot{text-align:center;padding:24px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:40px}
-@media(max-width:1200px){.cgrid{grid-template-columns:1fr}}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <nav class="nav">
@@ -41,29 +18,14 @@ a{color:inherit;text-decoration:none}
   <div class="nav-right"><span class="badge">LIVE</span></div>
 </nav>
 <div class="wrap">
-  <div class="sh">
-    <div class="st">NAND 深度追踪</div>
-    <div class="ss">MLC 暴涨 · 2D NAND 退出 · 产能转向 HBM</div>
+  <div class="sh"><div class="st">NAND 深度追踪</div><div class="ss">MLC 暴涨 · 2D NAND 退出 · 产能转向 HBM</div></div>
+  <div class="cgrid">
+    <div class="cc"><div class="cch"><span class="ct">NAND 现货 · MLC 价格暴涨 300%+</span><span class="cb">2025.01 - 2026.06</span></div><div class="cbox" id="ch-nd"></div></div>
+    <div class="cc"><div class="cch"><span class="ct">NAND 合约 · 2021-2026 周期</span><span class="cb">128Gb / 64Gb / 32Gb</span></div><div class="cbox" id="ch-nc2"></div></div>
   </div>
   <div class="cgrid">
-    <div class="cc">
-      <div class="cch"><span class="ct">NAND 现货 · MLC 价格暴涨 300%+</span><span class="cb">2025.01 - 2026.06</span></div>
-      <div class="cbox" id="ch-nd"></div>
-    </div>
-    <div class="cc">
-      <div class="cch"><span class="ct">NAND 合约 · 2021-2026 周期</span><span class="cb">128Gb / 64Gb / 32Gb</span></div>
-      <div class="cbox" id="ch-nc2"></div>
-    </div>
-  </div>
-  <div class="cgrid">
-    <div class="cc">
-      <div class="cch"><span class="ct">MLC 产能变化趋势</span><span class="cb">全球 MLC 产能骤降 41.7%</span></div>
-      <div class="cbox" id="ch-mcap"></div>
-    </div>
-    <div class="cc">
-      <div class="cch"><span class="ct">AI eSSD 需求驱动</span><span class="cb">数据中心 4-6 年更换周期</span></div>
-      <div class="cbox" id="ch-essd"></div>
-    </div>
+    <div class="cc"><div class="cch"><span class="ct">MLC 产能变化趋势</span><span class="cb">全球 MLC 产能骤降 41.7%</span></div><div class="cbox" id="ch-mcap"></div></div>
+    <div class="cc"><div class="cch"><span class="ct">AI eSSD 需求驱动</span><span class="cb">数据中心 4-6 年更换周期</span></div><div class="cbox" id="ch-essd"></div></div>
   </div>
 </div>
 <div class="foot">Storage Dashboard · 仅供参考，不构成投资建议 · 更新于 2026/6/18</div>
@@ -77,46 +39,10 @@ var QS=['2021Q1','2021Q2','2021Q3','2021Q4','2022Q1','2022Q2','2022Q3','2022Q4',
 var nq128=[4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.2,3.9,3.9,3.9,4.8,4.9,4.9,2.2,2.8,3.8,5.2,7.0,12.67,17.73];
 var nq64=[3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,2.6,2.5,2.5,2.6,3.4,3.4,3.4,2.0,2.3,3.0,4.8,6.0,9.5,13.2];
 var nq32=[2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.6,2.5,2.5,2.6,2.7,2.7,2.7,1.8,2.0,2.7,3.5,4.2,7.2,10.5];
-rc('ch-nd',{
-  title:{text:'NAND 现货 MLC 价格',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
-  legend:{data:['64Gb MLC','128Gb MLC'],top:25,textStyle:{color:'#94a3b8'}},
-  xAxis:lx(M),yAxis:vy('USD/颗'),
-  series:[
-    {name:'64Gb MLC',type:'line',data:[2,2,2.2,2.5,3.84,6,10,12,14,16,18,19,19.5,19.6,20,22,20,28],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:.15},lineStyle:{width:2.5}},
-    {name:'128Gb MLC',type:'line',data:[3,3.2,3.5,4,6.4,8,12,14,16,18,20,21,22,23,24,25,26,28],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:.1},lineStyle:{width:2}}
-  ]
-});
-rc('ch-nc2',{
-  title:{text:'NAND 合约 2021-2026',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
-  legend:{data:['128Gb MLC','64Gb MLC','32Gb MLC'],top:25,textStyle:{color:'#94a3b8'}},
-  xAxis:{type:'category',data:QS,splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}},
-  yAxis:vy('USD/颗'),
-  series:[
-    {name:'128Gb MLC',type:'line',data:nq128,smooth:true,symbol:'circle',symbolSize:5,lineStyle:{width:2.5},areaStyle:{opacity:.08}},
-    {name:'64Gb MLC',type:'line',data:nq64,smooth:true,symbol:'circle',symbolSize:5,lineStyle:{width:2}},
-    {name:'32Gb MLC',type:'line',data:nq32,smooth:true,symbol:'circle',symbolSize:5,lineStyle:{width:1.5,type:'dashed'}}
-  ]
-});
-rc('ch-mcap',{
-  title:{text:'全球 MLC NAND 产能指数',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
-  tooltip:{trigger:'axis',backgroundColor:'#111827',borderColor:'#1e293b',textStyle:{color:'#f1f5f9'}},
-  xAxis:{type:'category',data:['2024','2025Q1','2025Q2','2025Q3','2025Q4','2026Q1','2026Q2E'],splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}},
-  yAxis:{type:'value',name:'指数',splitLine:{lineStyle:{color:'#1e293b'}},axisLine:{show:false}},
-  series:[{name:'MLC 产能',type:'line',data:[100,95,85,72,60,48.3,48.3],smooth:true,symbol:'circle',symbolSize:8,lineStyle:{width:3},areaStyle:{color:'rgba(239,68,68,.15)'}}]
-});
-rc('ch-essd',{
-  title:{text:'AI eSSD 需求增长 (EB/年)',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
-  legend:{data:['2024','2025E','2026E','2027E'],top:25,textStyle:{color:'#94a3b8'}},
-  xAxis:{type:'category',data:['消费级 SSD','企业级 SSD','AI eSSD'],splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}},
-  yAxis:{type:'value',name:'EB/年',splitLine:{lineStyle:{color:'#1e293b'}},axisLine:{show:false}},
-  series:[
-    {name:'2024',type:'bar',data:[4.2,8.5,2.1],itemStyle:{color:'rgba(100,116,139,.5)',borderRadius:[4,4,0,0]},barWidth:'18%'},
-    {name:'2025E',type:'bar',data:[4.5,10.2,5.8],itemStyle:{color:'rgba(245,158,11,.6)',borderRadius:[4,4,0,0]},barWidth:'18%'},
-    {name:'2026E',type:'bar',data:[4.8,12.5,14.2],itemStyle:{color:'rgba(239,68,68,.6)',borderRadius:[4,4,0,0]},barWidth:'18%'},
-    {name:'2027E',type:'bar',data:[5.0,15.0,28.5],itemStyle:{color:'rgba(139,92,246,.6)',borderRadius:[4,4,0,0]},barWidth:'18%'}
-  ],
-  grid:{left:80,right:20,top:50,bottom:40}
-});
+rc('ch-nd',{title:{text:'NAND 现货 MLC 价格',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},legend:{data:['64Gb MLC','128Gb MLC'],top:25,textStyle:{color:'#94a3b8'}},xAxis:lx(M),yAxis:vy('USD/颗'),series:[{name:'64Gb MLC',type:'line',data:[2,2,2.2,2.5,3.84,6,10,12,14,16,18,19,19.5,19.6,20,22,20,28],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:.15},lineStyle:{width:2.5}},{name:'128Gb MLC',type:'line',data:[3,3.2,3.5,4,6.4,8,12,14,16,18,20,21,22,23,24,25,26,28],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:.1},lineStyle:{width:2}}]});
+rc('ch-nc2',{title:{text:'NAND 合约 2021-2026',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},legend:{data:['128Gb MLC','64Gb MLC','32Gb MLC'],top:25,textStyle:{color:'#94a3b8'}},xAxis:{type:'category',data:QS,splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}},yAxis:vy('USD/颗'),series:[{name:'128Gb MLC',type:'line',data:nq128,smooth:true,symbol:'circle',symbolSize:5,lineStyle:{width:2.5},areaStyle:{opacity:.08}},{name:'64Gb MLC',type:'line',data:nq64,smooth:true,symbol:'circle',symbolSize:5,lineStyle:{width:2}},{name:'32Gb MLC',type:'line',data:nq32,smooth:true,symbol:'circle',symbolSize:5,lineStyle:{width:1.5,type:'dashed'}}]});
+rc('ch-mcap',{title:{text:'全球 MLC NAND 产能指数',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},tooltip:{trigger:'axis',backgroundColor:'#111827',borderColor:'#1e293b',textStyle:{color:'#f1f5f9'}},xAxis:{type:'category',data:['2024','2025Q1','2025Q2','2025Q3','2025Q4','2026Q1','2026Q2E'],splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}},yAxis:{type:'value',name:'指数',splitLine:{lineStyle:{color:'#1e293b'}},axisLine:{show:false}},series:[{name:'MLC 产能',type:'line',data:[100,95,85,72,60,48.3,48.3],smooth:true,symbol:'circle',symbolSize:8,lineStyle:{width:3},areaStyle:{color:'rgba(239,68,68,.15)'}}]});
+rc('ch-essd',{title:{text:'AI eSSD 需求增长 (EB/年)',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},legend:{data:['2024','2025E','2026E','2027E'],top:25,textStyle:{color:'#94a3b8'}},xAxis:{type:'category',data:['消费级 SSD','企业级 SSD','AI eSSD'],splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}},yAxis:{type:'value',name:'EB/年',splitLine:{lineStyle:{color:'#1e293b'}},axisLine:{show:false}},series:[{name:'2024',type:'bar',data:[4.2,8.5,2.1],itemStyle:{color:'rgba(100,116,139,.5)',borderRadius:[4,4,0,0]},barWidth:'18%'},{name:'2025E',type:'bar',data:[4.5,10.2,5.8],itemStyle:{color:'rgba(245,158,11,.6)',borderRadius:[4,4,0,0]},barWidth:'18%'},{name:'2026E',type:'bar',data:[4.8,12.5,14.2],itemStyle:{color:'rgba(239,68,68,.6)',borderRadius:[4,4,0,0]},barWidth:'18%'},{name:'2027E',type:'bar',data:[5.0,15.0,28.5],itemStyle:{color:'rgba(139,92,246,.6)',borderRadius:[4,4,0,0]},barWidth:'18%'}],grid:{left:80,right:20,top:50,bottom:40}});
 </script>
 </body>
 </html>
