@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>存储三巨头 · Storage Dashboard</title>
+<style>
+:root{--bg:#0a0e17;--card:#111827;--border:#1e293b;--text:#f1f5f9;--sub:#94a3b8;--muted:#64748b;--blue:#3b82f6;--cyan:#06b6d4;--green:#10b981;--red:#ef4444;--yellow:#f59e0b;--purple:#8b5cf6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.nav{background:rgba(17,24,39,.95);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.brand{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700}
+.brand-i{width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.nav-links{display:flex;gap:4px}
+.nav-link{padding:8px 16px;border-radius:8px;color:var(--sub);font-size:14px;font-weight:500;transition:.2s}
+.nav-link:hover,.nav-link.active{color:var(--blue);background:rgba(59,130,246,.12)}
+.nav-right{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--muted)}
+.badge{background:var(--green);color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.wrap{max-width:1600px;margin:0 auto;padding:24px}
+.sh{margin-bottom:20px}.st{font-size:20px;font-weight:700}.ss{font-size:13px;color:var(--muted)}
+.tbar{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.tc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:.2s;position:relative;overflow:hidden}
+.tc:hover{background:rgba(255,255,255,.02);border-color:rgba(59,130,246,.3);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.tc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0}
+.tc.hx::before{background:linear-gradient(90deg,var(--blue),#60a5fa)}
+.tc.sm::before{background:linear-gradient(90deg,var(--cyan),#22d3ee)}
+.tc.mu::before{background:linear-gradient(90deg,var(--green),#34d399)}
+.tch{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.tco{font-size:16px;font-weight:700}.ttk{font-size:12px;color:var(--muted);background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px}
+.tp{font-size:28px;font-weight:800;margin-bottom:4px;font-variant-numeric:tabular-nums}
+.tm{font-size:12px;color:var(--muted);margin-bottom:12px}
+.tpc{font-size:12px;color:var(--muted);margin-top:8px}
+.tchg{display:inline-flex;align-items:center;padding:3px 8px;border-radius:6px;font-size:13px;font-weight:600}
+.tchg.up{color:var(--green);background:rgba(16,185,129,.1)}
+.kgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.kc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.kl{font-size:12px;color:var(--muted);margin-bottom:6px}
+.kv{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
+.ku{font-size:12px;color:var(--muted);margin-top:2px}
+.cgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:.2s}
+.cc:hover{border-color:rgba(59,130,246,.2);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.cch{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.ct{font-size:15px;font-weight:600}.cb{font-size:11px;color:var(--muted);background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px}
+.cbox{width:100%;height:360px}.cbox.tall{height:480px}
+.foot{text-align:center;padding:24px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:40px}
+@media(max-width:1200px){.cgrid{grid-template-columns:1fr}.tbar{grid-template-columns:1fr}.kgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.nav-links{display:none}.kgrid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="brand"><div class="brand-i">🧠</div><span>Storage Dashboard</span></div>
+  <div class="nav-links">
+    <a class="nav-link active" href="index.html">总览</a>
+    <a class="nav-link" href="dram.html">DRAM</a>
+    <a class="nav-link" href="nand.html">NAND</a>
+    <a class="nav-link" href="reports.html">深度报告</a>
+  </div>
+  <div class="nav-right"><span class="badge">LIVE</span><span id="clock"></span></div>
+</nav>
+<div class="wrap">
+  <div class="sh">
+    <div class="st">存储三巨头 · 实时行情</div>
+    <div class="ss">数据来源：Wind · TrendForce · 更新于 2026-06-18 15:45 CST</div>
+  </div>
+  <div class="tbar">
+    <div class="tc hx">
+      <div class="tch"><span class="tco">SK 海力士</span><span class="ttk">000660.KS</span></div>
+      <div class="tp">₩2,698,000</div>
+      <div class="tm">韩国交易所 · 韩元计价</div>
+      <div class="tchg up">存储超级周期 · HBM 龙头</div>
+      <div class="tpc">总市值：₩1,796.7 万亿</div>
+    </div>
+    <div class="tc sm">
+      <div class="tch"><span class="tco">三星电子</span><span class="ttk">005930.KS</span></div>
+      <div class="tp">₩3,675</div>
+      <div class="tm">韩国交易所 · 韩元计价</div>
+      <div class="tchg up">存储全能冠军 · 2D NAND 退出</div>
+      <div class="tpc">总市值：$1,332B（伦敦）</div>
+    </div>
+    <div class="tc mu">
+      <div class="tch"><span class="tco">美光科技</span><span class="ttk">MU.O</span></div>
+      <div class="tp">$1,043.19</div>
+      <div class="tm">纳斯达克 · 美元计价</div>
+      <div class="tchg up">Q1 FY26 营收 $1,364 亿 · 创新高</div>
+      <div class="tpc">总市值：$1,176B</div>
+    </div>
+  </div>
+  <div class="kgrid">
+    <div class="kc"><div class="kl">DRAM 合约价涨幅 (Q2)</div><div class="kv" style="color:var(--blue)">+58~63%</div><div class="ku">环比 · TrendForce</div></div>
+    <div class="kc"><div class="kl">NAND 合约价涨幅 (Q2)</div><div class="kv" style="color:var(--cyan)">+70~75%</div><div class="ku">环比 · TrendForce</div></div>
+    <div class="kc"><div class="kl">全球 HBM 位元消耗增长</div><div class="kv" style="color:var(--green)">+92%</div><div class="ku">YoY · 285 亿 Gb</div></div>
+    <div class="kc"><div class="kl">CSP 2026 Capex</div><div class="kv" style="color:var(--yellow)">~$8,300B</div><div class="ku">+79% YoY</div></div>
+  </div>
+  <div class="cgrid">
+    <div class="cc">
+      <div class="cch"><span class="ct">DRAM 现货 · DDR4 vs DDR5</span><span class="cb">2025.01 - 2026.06</span></div>
+      <div class="cbox" id="ch-do"></div>
+    </div>
+    <div class="cc">
+      <div class="cch"><span class="ct">NAND 现货 · MLC 价格暴涨</span><span class="cb">2025.01 - 2026.06</span></div>
+      <div class="cbox" id="ch-no"></div>
+    </div>
+  </div>
+  <div class="cgrid" style="grid-template-columns:1fr">
+    <div class="cc">
+      <div class="cch"><span class="ct">NAND 合约 · 多规格对比</span><span class="cb">2021.01 - 2026.06</span></div>
+      <div class="cbox tall" id="ch-nc"></div>
+    </div>
+  </div>
+</div>
+<div class="foot">Storage Dashboard · 仅供参考，不构成投资建议 · 更新于 2026/6/18</div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script>
+function rc(id,opt){var e=document.getElementById(id);if(!e)return;var c=echarts.init(e,null,{renderer:'svg'});c.setOption(opt);window.addEventListener('resize',function(){c.resize()})}
+function lx(d){return{type:'category',data:d,splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}}}
+function vy(n){return{type:'value',name:n,splitLine:{lineStyle:{color:'#1e293b'}},axisLine:{show:false},axisLabel:{formatter:'${}'}}}
+var M=['2025-01','2025-02','2025-03','2025-04','2025-05','2025-06','2025-07','2025-08','2025-09','2025-10','2025-11','2025-12','2026-01','2026-02','2026-03','2026-04','2026-05','2026-06'];
+var y=['2021Q1','2021Q2','2021Q3','2021Q4','2022Q1','2022Q2','2022Q3','2022Q4','2023Q1','2023Q2','2023Q3','2023Q4','2024Q1','2024Q2','2024Q3','2024Q4','2025Q1','2025Q2','2025Q3','2025Q4','2026Q1','2026Q2'];
+rc('ch-do',{
+  title:{text:'DRAM 现货价格',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
+  legend:{data:['DDR5 16Gb 4800','DDR4 16Gb 3200','DDR4 8Gb 3200'],top:25,textStyle:{color:'#94a3b8'}},
+  xAxis:lx(M),yAxis:vy('USD/颗'),
+  series:[
+    {name:'DDR5 16Gb 4800',type:'line',data:[6.5,6.5,6.5,8,12,17,22,28,33,35,36.5,37,37.5,38,38.5,38.8],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:.1},lineStyle:{width:2}},
+    {name:'DDR4 16Gb 3200',type:'line',data:[4.2,4.5,4.8,5,7,12.3,20,35,50,58,62,68,70,78,75,78],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:.1},lineStyle:{width:2}},
+    {name:'DDR4 8Gb 3200',type:'line',data:[2.5,2.5,2.8,3,4.5,6,10,18,25,28,30,31,31,31,32,32.4],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:.1},lineStyle:{width:2}}
+  ]
+});
+rc('ch-no',{
+  title:{text:'NAND 现货 · MLC 价格暴涨',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
+  legend:{data:['64Gb MLC','128Gb MLC'],top:25,textStyle:{color:'#94a3b8'}},
+  xAxis:lx(M),yAxis:vy('USD/颗'),
+  series:[
+    {name:'64Gb MLC',type:'line',data:[2,2,2.2,2.5,3.84,6,10,12,14,16,18,19,19.5,19.6,20,22,20,28],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:.15},lineStyle:{width:2.5}},
+    {name:'128Gb MLC',type:'line',data:[3,3.2,3.5,4,6.4,8,12,14,16,18,20,21,22,23,24,25,26,28],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:.1},lineStyle:{width:2}}
+  ]
+});
+rc('ch-nc',{
+  title:{text:'NAND 合约价格 · 多规格 (2021-2026)',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
+  legend:{data:['128Gb MLC','64Gb MLC','32Gb MLC'],top:25,textStyle:{color:'#94a3b8'}},
+  xAxis:{type:'category',data:y,splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}},
+  yAxis:vy('USD/颗'),
+  series:[
+    {name:'128Gb MLC',type:'line',data:[4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.2,3.9,3.9,3.9,4.8,4.9,4.9,2.2,2.8,3.8,5.2,7,12.67,17.73],smooth:true,symbol:'circle',symbolSize:5,lineStyle:{width:2.5},areaStyle:{opacity:.08}},
+    {name:'64Gb MLC',type:'line',data:[3,3,3,3,3,3,3,3,2.6,2.5,2.5,2.6,3.4,3.4,3.4,2,2.3,3,4.8,6,9.5,13.2],smooth:true,symbol:'circle',symbolSize:5,lineStyle:{width:2}},
+    {name:'32Gb MLC',type:'line',data:[2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.6,2.5,2.5,2.6,2.7,2.7,2.7,1.8,2,2.7,3.5,4.2,7.2,10.5],smooth:true,symbol:'circle',symbolSize:5,lineStyle:{width:1.5,type:'dashed'}}
+  ]
+});
+</script>
+</body>
+</html>

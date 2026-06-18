@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深度报告 · Storage Dashboard</title>
+<style>
+:root{--bg:#0a0e17;--card:#111827;--border:#1e293b;--text:#f1f5f9;--sub:#94a3b8;--muted:#64748b;--blue:#3b82f6;--cyan:#06b6d4;--green:#10b981;--red:#ef4444;--yellow:#f59e0b;--purple:#8b5cf6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.nav{background:rgba(17,24,39,.95);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.brand{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700}
+.brand-i{width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.nav-links{display:flex;gap:4px}
+.nav-link{padding:8px 16px;border-radius:8px;color:var(--sub);font-size:14px;font-weight:500;transition:.2s}
+.nav-link:hover,.nav-link.active{color:var(--blue);background:rgba(59,130,246,.12)}
+.nav-right{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--muted)}
+.badge{background:var(--green);color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.wrap{max-width:1000px;margin:0 auto;padding:24px}
+.sh{margin-bottom:24px}.st{font-size:22px;font-weight:700}.ss{font-size:13px;color:var(--muted);margin-top:4px}
+.report-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:16px;transition:.2s}
+.report-card:hover{border-color:rgba(59,130,246,.3)}
+.report-title{font-size:20px;font-weight:700;margin-bottom:8px;line-height:1.4}
+.report-date{font-size:12px;color:var(--muted);margin-bottom:16px}
+.report-body{font-size:14px;line-height:1.8;color:var(--sub)}
+.report-body h2{font-size:17px;color:var(--text);margin:20px 0 10px;padding-left:12px;border-left:3px solid var(--blue)}
+.report-body h3{font-size:15px;color:var(--text);margin:16px 0 8px;padding-left:12px;border-left:3px solid var(--cyan)}
+.report-body strong{color:var(--text)}
+.report-body p{margin-bottom:12px}
+.report-body table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.report-body th{background:rgba(255,255,255,.05);padding:10px 12px;text-align:left;color:var(--sub);font-weight:600;border-bottom:1px solid var(--border)}
+.report-body td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.03)}
+.foot{text-align:center;padding:24px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:40px}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="brand"><div class="brand-i">🧠</div><span>Storage Dashboard</span></div>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">总览</a>
+    <a class="nav-link" href="dram.html">DRAM</a>
+    <a class="nav-link" href="nand.html">NAND</a>
+    <a class="nav-link active" href="reports.html">深度报告</a>
+  </div>
+  <div class="nav-right"><span class="badge">LIVE</span></div>
+</nav>
+<div class="wrap">
+  <div class="sh">
+    <div class="st">深度报告</div>
+    <div class="ss">AI 驱动的存储产业分析报告 · 每日自动生成</div>
+  </div>
+  <div class="report-card">
+    <div class="report-title">存储芯片 AI 超级周期：从供需缺口到估值重构</div>
+    <div class="report-date">2026-06-18 · 存储产业链</div>
+    <div class="report-body">
+      <h2>一、核心结论</h2>
+      <p>当前存储行业正处于 <strong>AI 驱动的超级周期</strong>之中。2026 年全球九大云服务商（CSP）资本开支预计达 <strong>$8,300 亿</strong>，同比增长 79%。北美四大 CSP（谷歌/微软/亚马逊/Meta）合计 Capex 超 <strong>$7,000 亿</strong>。</p>
+      <p>核心矛盾：<strong>AI 对 HBM 和先进存储的需求爆发式增长</strong>，与原厂产能向 HBM 倾斜、2D NAND/MLC 产能加速退出之间的矛盾。</p>
+      <h2>二、DRAM 超级周期</h2>
+      <p>价格端：2026 年 Q2 DRAM 合约价环比暴涨 <strong>58-63%</strong>，NAND 合约价环比暴涨 <strong>70-75%</strong>。</p>
+      <table>
+        <thead><tr><th>颗粒</th><th>2025 Q4</th><th>2026 Q1</th><th>2026 Q2</th><th>累计涨幅</th></tr></thead>
+        <tbody>
+          <tr><td>DDR5 16Gb 4800</td><td>$12.0</td><td>$37.0</td><td>$38.8</td><td>+454%</td></tr>
+          <tr><td>DDR4 16Gb 3200</td><td>$7.0</td><td>$78.0</td><td>~$32.0</td><td>+160%</td></tr>
+        </tbody>
+      </table>
+      <h2>三、NAND：MLC 的史诗级暴涨</h2>
+      <p>MLC 64Gb 现货价格从 2025 年底的 <strong>$6</strong> 飙升至 <strong>$20-28</strong>，涨幅超 300%。128Gb MLC 合约价从 $2.18 涨至 $17.73，<strong>近 8 倍</strong>。</p>
+      <h2>四、核心风险</h2>
+      <p>1. 10Y 美债收益率从 4.05% 升至 4.42%<br>
+         2. 2027H2 后新产能释放<br>
+         3. AI 存储强于消费电子存储的分化<br>
+         4. 台海风险与芯片出口管制</p>
+    </div>
+  </div>
+  <div style="text-align:center;padding:40px 20px;color:var(--muted);font-size:14px">
+    <div style="font-size:36px;margin-bottom:12px">📝</div>
+    <p>每日报告将在此自动更新</p>
+    <p style="font-size:12px;margin-top:8px">运行以下命令添加报告：</p>
+    <pre style="background:var(--card);padding:12px;border-radius:8px;margin-top:8px;font-size:12px;color:var(--cyan);text-align:left;display:inline-block;max-width:100%">echo '---
+title: "标题"
+date: 2026-06-19
+---
+
+报告正文...' &gt; src/content/docs/2026-06-19.md</pre>
+  </div>
+</div>
+<div class="foot">Storage Dashboard · 仅供参考，不构成投资建议 · 更新于 2026/6/18</div>
+</body>
+</html>

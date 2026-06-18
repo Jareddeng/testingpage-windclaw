@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRAM 深度追踪 · Storage Dashboard</title>
+<style>
+:root{--bg:#0a0e17;--card:#111827;--border:#1e293b;--text:#f1f5f9;--sub:#94a3b8;--muted:#64748b;--blue:#3b82f6;--cyan:#06b6d4;--green:#10b981;--red:#ef4444;--yellow:#f59e0b;--purple:#8b5cf6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.nav{background:rgba(17,24,39,.95);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.brand{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700}
+.brand-i{width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.nav-links{display:flex;gap:4px}
+.nav-link{padding:8px 16px;border-radius:8px;color:var(--sub);font-size:14px;font-weight:500;transition:.2s}
+.nav-link:hover,.nav-link.active{color:var(--blue);background:rgba(59,130,246,.12)}
+.nav-right{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--muted)}
+.badge{background:var(--green);color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.wrap{max-width:1600px;margin:0 auto;padding:24px}
+.sh{margin-bottom:20px}.st{font-size:20px;font-weight:700}.ss{font-size:13px;color:var(--muted)}
+.cgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:.2s}
+.cc:hover{border-color:rgba(59,130,246,.2);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.cch{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.ct{font-size:15px;font-weight:600}.cb{font-size:11px;color:var(--muted);background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px}
+.cbox{width:100%;height:360px}.cbox.tall{height:480px}
+.foot{text-align:center;padding:24px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:40px}
+.dtbl{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.dtbl th{background:rgba(255,255,255,.05);padding:10px 12px;text-align:left;color:var(--sub);font-weight:600;border-bottom:1px solid var(--border)}
+.dtbl td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--sub)}
+.dtbl tr:hover td{background:rgba(255,255,255,.02)}
+@media(max-width:1200px){.cgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="brand"><div class="brand-i">🧠</div><span>Storage Dashboard</span></div>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">总览</a>
+    <a class="nav-link active" href="dram.html">DRAM</a>
+    <a class="nav-link" href="nand.html">NAND</a>
+    <a class="nav-link" href="reports.html">深度报告</a>
+  </div>
+  <div class="nav-right"><span class="badge">LIVE</span></div>
+</nav>
+<div class="wrap">
+  <div class="sh">
+    <div class="st">DRAM 深度追踪</div>
+    <div class="ss">DDR4/DDR5 价格 · HBM 产能 · 三大原厂营收趋势</div>
+  </div>
+  <div class="cgrid">
+    <div class="cc">
+      <div class="cch"><span class="ct">DRAM 现货 · 2025.01 - 2026.06</span><span class="cb">DDR5 / DDR4</span></div>
+      <div class="cbox" id="ch-do"></div>
+    </div>
+    <div class="cc">
+      <div class="cch"><span class="ct">DDR4 vs DDR5 对比 (Q2 2026)</span><span class="cb">Q2 2025 → Q2 2026</span></div>
+      <div class="cbox" id="ch-di"></div>
+    </div>
+  </div>
+  <div class="cgrid">
+    <div class="cc">
+      <div class="cch"><span class="ct">HBM 产能 vs 需求</span><span class="cb">供给缺口持续扩大</span></div>
+      <div class="cbox" id="ch-hbm"></div>
+    </div>
+    <div class="cc">
+      <div class="cch"><span class="ct">三大原厂 DRAM 季度营收</span><span class="cb">万亿韩元</span></div>
+      <div class="cbox" id="ch-rev"></div>
+    </div>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:24px">
+    <div style="font-size:15px;font-weight:600;margin-bottom:16px">DRAM 价格速查表</div>
+    <table class="dtbl">
+      <thead><tr><th>颗粒</th><th>2025 Q4</th><th>2026 Q1</th><th>2026 Q2</th><th>累计涨幅</th></tr></thead>
+      <tbody>
+        <tr><td>DDR5 16Gb 4800</td><td>$12.0</td><td>$37.0</td><td>$38.8</td><td style="color:var(--green)">+454%</td></tr>
+        <tr><td>DDR4 16Gb 3200</td><td>$7.0</td><td>$78.0</td><td>~$32.0</td><td style="color:var(--green)">+160%</td></tr>
+        <tr><td>DDR4 8Gb 3200</td><td>$6.0</td><td>$31.0</td><td>~$32.4</td><td style="color:var(--green)">+440%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="foot">Storage Dashboard · 仅供参考，不构成投资建议 · 更新于 2026/6/18</div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script>
+function rc(id,opt){var e=document.getElementById(id);if(!e)return;var c=echarts.init(e,null,{renderer:'svg'});c.setOption(opt);window.addEventListener('resize',function(){c.resize()})}
+function lx(d){return{type:'category',data:d,splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}}}
+function vy(n){return{type:'value',name:n,splitLine:{lineStyle:{color:'#1e293b'}},axisLine:{show:false},axisLabel:{formatter:'${}'}}}
+var M=['2025-01','2025-02','2025-03','2025-04','2025-05','2025-06','2025-07','2025-08','2025-09','2025-10','2025-11','2025-12','2026-01','2026-02','2026-03','2026-04','2026-05','2026-06'];
+rc('ch-do',{
+  title:{text:'DRAM 现货价格',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
+  legend:{data:['DDR5 16Gb 4800','DDR4 16Gb 3200','DDR4 8Gb 3200'],top:25,textStyle:{color:'#94a3b8'}},
+  xAxis:lx(M),yAxis:vy('USD/颗'),
+  series:[
+    {name:'DDR5 16Gb 4800',type:'line',data:[6.5,6.5,6.5,8,12,17,22,28,33,35,36.5,37,37.5,38,38.5,38.8],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:.1},lineStyle:{width:2}},
+    {name:'DDR4 16Gb 3200',type:'line',data:[4.2,4.5,4.8,5,7,12.3,20,35,50,58,62,68,70,78,75,78],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:.1},lineStyle:{width:2}},
+    {name:'DDR4 8Gb 3200',type:'line',data:[2.5,2.5,2.8,3,4.5,6,10,18,25,28,30,31,31,31,32,32.4],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:.1},lineStyle:{width:2}}
+  ]
+});
+rc('ch-di',{
+  title:{text:'DDR4/DDR5 价格对比 (Q2 2026)',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
+  legend:{data:['DDR4 16Gb','DDR5 16Gb'],top:25,textStyle:{color:'#94a3b8'}},
+  xAxis:{type:'category',data:['Q2 2025','Q4 2025','Q1 2026','Q2 2026'],splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}},
+  yAxis:vy('USD/颗'),
+  series:[
+    {name:'DDR4 16Gb',type:'bar',data:[7,20,55,78],itemStyle:{color:'rgba(59,130,246,.6)',borderRadius:[4,4,0,0]},barWidth:'30%'},
+    {name:'DDR5 16Gb',type:'bar',data:[17,28,36.5,38.8],itemStyle:{color:'rgba(6,182,212,.6)',borderRadius:[4,4,0,0]},barWidth:'30%'}
+  ]
+});
+rc('ch-hbm',{
+  title:{text:'HBM 产能 vs 需求 (百万 Gb)',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
+  legend:{data:['需求','供给（估算）'],top:25,textStyle:{color:'#94a3b8'}},
+  xAxis:{type:'category',data:['2024','2025E','2026E','2027E'],splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}},
+  yAxis:vy('Gb'),
+  series:[
+    {name:'需求',type:'bar',data:[120,180,285,420],itemStyle:{color:'rgba(139,92,246,.7)',borderRadius:[4,4,0,0]},barWidth:'30%'},
+    {name:'供给（估算）',type:'bar',data:[100,140,240,350],itemStyle:{color:'rgba(59,130,246,.5)',borderRadius:[4,4,0,0]},barWidth:'30%'}
+  ]
+});
+rc('ch-rev',{
+  title:{text:'三大原厂 DRAM 季度营收 (万亿韩元)',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
+  legend:{data:['SK 海力士','三星电子'],top:25,textStyle:{color:'#94a3b8'}},
+  xAxis:{type:'category',data:['2024Q1','2024Q2','2024Q3','2024Q4','2025Q1','2025Q2','2025Q3','2025Q4','2026Q1','2026Q2'],splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}},
+  yAxis:vy('韩元'),
+  series:[
+    {name:'SK 海力士',type:'line',data:[210,222,244,328,380,420,526,560,526,600],smooth:true,symbol:'circle',symbolSize:6,lineStyle:{width:2.5}},
+    {name:'三星电子',type:'line',data:[630,660,746,861,938,980,1050,1100,1339,1350],smooth:true,symbol:'circle',symbolSize:6,lineStyle:{width:2.5}}
+  ]
+});
+</script>
+</body>
+</html>
