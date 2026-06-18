@@ -4,71 +4,112 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>存储三巨头 · Storage Dashboard</title>
-<link rel="stylesheet" href="style.css">
 </head>
-<body>
-<nav class="nav">
-  <div class="brand"><div class="brand-i">🧠</div><span>Storage Dashboard</span></div>
-  <div class="nav-links">
-    <a class="nav-link active" href="index.html">总览</a>
-    <a class="nav-link" href="dram.html">DRAM</a>
-    <a class="nav-link" href="nand.html">NAND</a>
-    <a class="nav-link" href="reports.html">深度报告</a>
+<body style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#0a0e17;color:#f1f5f9;line-height:1.6">
+<div style="background:rgba(17,24,39,.95);border-bottom:1px solid #1e293b;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)">
+  <div style="display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700">
+    <div style="width:32px;height:32px;background:linear-gradient(135deg,#3b82f6,#06b6d4);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px">&#x1f9e0;</div>
+    <span>Storage Dashboard</span>
   </div>
-  <div class="nav-right"><span class="badge">LIVE</span></div>
-</nav>
-<div class="wrap">
-  <div class="sh">
-    <div class="st">存储三巨头 · 实时行情</div>
-    <div class="ss">数据来源：Wind · TrendForce · 更新于 2026-06-18 16:10 CST</div>
+  <div style="display:flex;gap:4px">
+    <a href="index.html" style="padding:8px 16px;border-radius:8px;color:#3b82f6;background:rgba(59,130,246,.12);font-size:14px;font-weight:500">总览</a>
+    <a href="dram.html" style="padding:8px 16px;border-radius:8px;color:#94a3b8;font-size:14px;font-weight:500;text-decoration:none">DRAM</a>
+    <a href="nand.html" style="padding:8px 16px;border-radius:8px;color:#94a3b8;font-size:14px;font-weight:500;text-decoration:none">NAND</a>
+    <a href="reports.html" style="padding:8px 16px;border-radius:8px;color:#94a3b8;font-size:14px;font-weight:500;text-decoration:none">深度报告</a>
   </div>
-  <div class="tbar">
-    <div class="tc hx">
-      <div class="tch"><span class="tco">SK 海力士</span><span class="ttk">000660.KS</span></div>
-      <div class="tp">₩2,698,000</div>
-      <div class="tm">韩国交易所 · 韩元计价</div>
-      <div class="tchg up">存储超级周期 · HBM 龙头</div>
-      <div class="tpc">总市值：₩1,796.7 万亿</div>
+  <div style="font-size:12px;color:#64748b">
+    <span style="background:#10b981;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">LIVE</span>
+  </div>
+</div>
+<div style="max-width:1600px;margin:0 auto;padding:24px">
+  <div style="margin-bottom:20px">
+    <div style="font-size:20px;font-weight:700">存储三巨头 · 实时行情</div>
+    <div style="font-size:13px;color:#64748b">数据来源：Wind · TrendForce · 更新于 2026-06-18 16:15 CST</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px">
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:20px;position:relative;overflow:hidden;transition:.2s" onmouseover="this.style.borderColor='rgba(59,130,246,.3)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 32px rgba(0,0,0,.4)'" onmouseout="this.style.borderColor='#1e293b';this.style.transform='none';this.style.boxShadow='none'">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0;background:linear-gradient(90deg,#3b82f6,#60a5fa)"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <span style="font-size:16px;font-weight:700">SK 海力士</span>
+        <span style="font-size:12px;color:#64748b;background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px">000660.KS</span>
+      </div>
+      <div style="font-size:28px;font-weight:800;margin-bottom:4px">₩2,698,000</div>
+      <div style="font-size:12px;color:#64748b;margin-bottom:12px">韩国交易所 · 韩元计价</div>
+      <div style="display:inline-flex;align-items:center;padding:3px 8px;border-radius:6px;font-size:13px;font-weight:600;color:#10b981;background:rgba(16,185,129,.1)">存储超级周期 · HBM 龙头</div>
+      <div style="font-size:12px;color:#64748b;margin-top:8px">总市值：₩1,796.7 万亿</div>
     </div>
-    <div class="tc sm">
-      <div class="tch"><span class="tco">三星电子</span><span class="ttk">005930.KS</span></div>
-      <div class="tp">₩3,675</div>
-      <div class="tm">韩国交易所 · 韩元计价</div>
-      <div class="tchg up">存储全能冠军 · 2D NAND 退出</div>
-      <div class="tpc">总市值：$1,332B（伦敦）</div>
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:20px;position:relative;overflow:hidden;transition:.2s" onmouseover="this.style.borderColor='rgba(59,130,246,.3)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 32px rgba(0,0,0,.4)'" onmouseout="this.style.borderColor='#1e293b';this.style.transform='none';this.style.boxShadow='none'">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0;background:linear-gradient(90deg,#06b6d4,#22d3ee)"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <span style="font-size:16px;font-weight:700">三星电子</span>
+        <span style="font-size:12px;color:#64748b;background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px">005930.KS</span>
+      </div>
+      <div style="font-size:28px;font-weight:800;margin-bottom:4px">₩3,675</div>
+      <div style="font-size:12px;color:#64748b;margin-bottom:12px">韩国交易所 · 韩元计价</div>
+      <div style="display:inline-flex;align-items:center;padding:3px 8px;border-radius:6px;font-size:13px;font-weight:600;color:#10b981;background:rgba(16,185,129,.1)">存储全能冠军 · 2D NAND 退出</div>
+      <div style="font-size:12px;color:#64748b;margin-top:8px">总市值：$1,332B（伦敦）</div>
     </div>
-    <div class="tc mu">
-      <div class="tch"><span class="tco">美光科技</span><span class="ttk">MU.O</span></div>
-      <div class="tp">$1,043.19</div>
-      <div class="tm">纳斯达克 · 美元计价</div>
-      <div class="tchg up">Q1 FY26 营收 $1,364 亿 · 创新高</div>
-      <div class="tpc">总市值：$1,176B</div>
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:20px;position:relative;overflow:hidden;transition:.2s" onmouseover="this.style.borderColor='rgba(59,130,246,.3)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 32px rgba(0,0,0,.4)'" onmouseout="this.style.borderColor='#1e293b';this.style.transform='none';this.style.boxShadow='none'">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0;background:linear-gradient(90deg,#10b981,#34d399)"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <span style="font-size:16px;font-weight:700">美光科技</span>
+        <span style="font-size:12px;color:#64748b;background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px">MU.O</span>
+      </div>
+      <div style="font-size:28px;font-weight:800;margin-bottom:4px">$1,043.19</div>
+      <div style="font-size:12px;color:#64748b;margin-bottom:12px">纳斯达克 · 美元计价</div>
+      <div style="display:inline-flex;align-items:center;padding:3px 8px;border-radius:6px;font-size:13px;font-weight:600;color:#10b981;background:rgba(16,185,129,.1)">Q1 FY26 营收 $1,364 亿 · 创新高</div>
+      <div style="font-size:12px;color:#64748b;margin-top:8px">总市值：$1,176B</div>
     </div>
   </div>
-  <div class="kgrid">
-    <div class="kc"><div class="kl">DRAM 合约价涨幅 (Q2)</div><div class="kv" style="color:#3b82f6">+58~63%</div><div class="ku">环比 · TrendForce</div></div>
-    <div class="kc"><div class="kl">NAND 合约价涨幅 (Q2)</div><div class="kv" style="color:#06b6d4">+70~75%</div><div class="ku">环比 · TrendForce</div></div>
-    <div class="kc"><div class="kl">全球 HBM 位元消耗增长</div><div class="kv" style="color:#10b981">+92%</div><div class="ku">YoY · 285 亿 Gb</div></div>
-    <div class="kc"><div class="kl">CSP 2026 Capex</div><div class="kv" style="color:#f59e0b">~$8,300B</div><div class="ku">+79% YoY</div></div>
-  </div>
-  <div class="cgrid">
-    <div class="cc">
-      <div class="cch"><span class="ct">DRAM 现货 · DDR4 vs DDR5</span><span class="cb">2025.01 - 2026.06</span></div>
-      <div class="cbox" id="ch-do"></div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px">
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:10px;padding:16px;text-align:center">
+      <div style="font-size:12px;color:#64748b;margin-bottom:6px">DRAM 合约价涨幅 (Q2)</div>
+      <div style="font-size:22px;font-weight:800;color:#3b82f6">+58~63%</div>
+      <div style="font-size:12px;color:#64748b;margin-top:2px">环比 · TrendForce</div>
     </div>
-    <div class="cc">
-      <div class="cch"><span class="ct">NAND 现货 · MLC 价格暴涨</span><span class="cb">2025.01 - 2026.06</span></div>
-      <div class="cbox" id="ch-no"></div>
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:10px;padding:16px;text-align:center">
+      <div style="font-size:12px;color:#64748b;margin-bottom:6px">NAND 合约价涨幅 (Q2)</div>
+      <div style="font-size:22px;font-weight:800;color:#06b6d4">+70~75%</div>
+      <div style="font-size:12px;color:#64748b;margin-top:2px">环比 · TrendForce</div>
+    </div>
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:10px;padding:16px;text-align:center">
+      <div style="font-size:12px;color:#64748b;margin-bottom:6px">全球 HBM 位元消耗增长</div>
+      <div style="font-size:22px;font-weight:800;color:#10b981">+92%</div>
+      <div style="font-size:12px;color:#64748b;margin-top:2px">YoY · 285 亿 Gb</div>
+    </div>
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:10px;padding:16px;text-align:center">
+      <div style="font-size:12px;color:#64748b;margin-bottom:6px">CSP 2026 Capex</div>
+      <div style="font-size:22px;font-weight:800;color:#f59e0b">~$8,300B</div>
+      <div style="font-size:12px;color:#64748b;margin-top:2px">+79% YoY</div>
     </div>
   </div>
-  <div class="cgrid" style="grid-template-columns:1fr">
-    <div class="cc">
-      <div class="cch"><span class="ct">NAND 合约 · 多规格对比</span><span class="cb">2021.01 - 2026.06</span></div>
-      <div class="cbox tall" id="ch-nc"></div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px">
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:20px" onmouseover="this.style.borderColor='rgba(59,130,246,.2)';this.style.boxShadow='0 8px 32px rgba(0,0,0,.3)'" onmouseout="this.style.borderColor='#1e293b';this.style.boxShadow='none'">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <span style="font-size:15px;font-weight:600">DRAM 现货 · DDR4 vs DDR5</span>
+        <span style="font-size:11px;color:#64748b;background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px">2025.01 - 2026.06</span>
+      </div>
+      <div id="ch-do" style="width:100%;height:360px"></div>
+    </div>
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:20px" onmouseover="this.style.borderColor='rgba(59,130,246,.2)';this.style.boxShadow='0 8px 32px rgba(0,0,0,.3)'" onmouseout="this.style.borderColor='#1e293b';this.style.boxShadow='none'">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <span style="font-size:15px;font-weight:600">NAND 现货 · MLC 价格暴涨</span>
+        <span style="font-size:11px;color:#64748b;background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px">2025.01 - 2026.06</span>
+      </div>
+      <div id="ch-no" style="width:100%;height:360px"></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:24px">
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:20px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <span style="font-size:15px;font-weight:600">NAND 合约 · 多规格对比</span>
+        <span style="font-size:11px;color:#64748b;background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px">2021.01 - 2026.06</span>
+      </div>
+      <div id="ch-nc" style="width:100%;height:480px"></div>
     </div>
   </div>
 </div>
-<div class="foot">Storage Dashboard · 仅供参考，不构成投资建议 · 更新于 2026/6/18</div>
+<div style="text-align:center;padding:24px;font-size:12px;color:#64748b;border-top:1px solid #1e293b;margin-top:40px">Storage Dashboard · 仅供参考，不构成投资建议 · 更新于 2026/6/18</div>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
 <script>
 function rc(id,opt){var e=document.getElementById(id);if(!e)return;var c=echarts.init(e,null,{renderer:'svg'});c.setOption(opt);window.addEventListener('resize',function(){c.resize()})}
