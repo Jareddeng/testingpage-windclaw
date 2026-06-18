@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+export const prerender = true;
+---
+
+<Layout title="NAND 深度追踪 · Storage Dashboard">
+
+  <div class="sh">
+    <div class="st">NAND 深度追踪</div>
+    <div class="ss">MLC 暴涨 · 2D NAND 退出 · 产能转向 HBM</div>
+  </div>
+
+  <div class="cgrid">
+    <div class="cc">
+      <div class="cch"><span class="ct">NAND 现货 · MLC 价格暴涨 300%+</span><span class="cb">2025.01 - 2026.06</span></div>
+      <div class="cbox" id="ch-nd"></div>
+    </div>
+    <div class="cc">
+      <div class="cch"><span class="ct">NAND 合约 · 2021-2026 周期</span><span class="cb">128Gb / 64Gb / 32Gb</span></div>
+      <div class="cbox" id="ch-nc2"></div>
+    </div>
+  </div>
+
+  <div class="cgrid">
+    <div class="cc">
+      <div class="cch"><span class="ct">MLC 产能变化趋势</span><span class="cb">全球 MLC 产能骤降 41.7%</span></div>
+      <div class="cbox" id="ch-mcap"></div>
+    </div>
+    <div class="cc">
+      <div class="cch"><span class="ct">AI eSSD 需求驱动</span><span class="cb">数据中心 4-6 年更换周期</span></div>
+      <div class="cbox" id="ch-essd"></div>
+    </div>
+  </div>
+
+</Layout>
+
+<script>
+const M=['2025-01','2025-02','2025-03','2025-04','2025-05','2025-06','2025-07','2025-08','2025-09','2025-10','2025-11','2025-12','2026-01','2026-02','2026-03','2026-04','2026-05','2026-06'];
+const QS=['2021Q1','2021Q2','2021Q3','2021Q4','2022Q1','2022Q2','2022Q3','2022Q4','2023Q1','2023Q2','2023Q3','2023Q4','2024Q1','2024Q2','2024Q3','2024Q4','2025Q1','2025Q2','2025Q3','2025Q4','2026Q1','2026Q2'];
+const nq128=[4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.2,3.9,3.9,3.9,4.8,4.9,4.9,2.2,2.8,3.8,5.2,7.0,12.67,17.73];
+const nq64=[3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,2.6,2.5,2.5,2.6,3.4,3.4,3.4,2.0,2.3,3.0,4.8,6.0,9.5,13.2];
+const nq32=[2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.8,2.6,2.5,2.5,2.6,2.7,2.7,2.7,1.8,2.0,2.7,3.5,4.2,7.2,10.5];
+
+function rc(id,opt){const e=document.getElementById(id);if(!e)return;const c=echarts.init(e,null,{renderer:'svg'});c.setOption(opt);window.addEventListener('resize',()=>c.resize());}
+function lx(d){return{type:'category',data:d,splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}}}
+function vy(n){return{type:'value',name:n,splitLine:{lineStyle:{color:'#1e293b'}},axisLine:{show:false},axisLabel:{formatter:'${}'}}}
+
+rc('ch-nd',{
+  title:{text:'NAND 现货 MLC 价格',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
+  legend:{data:['64Gb MLC','128Gb MLC'],top:25,textStyle:{color:'#94a3b8'}},
+  xAxis:lx(M),yAxis:vy('USD/颗'),
+  series:[
+    {name:'64Gb MLC',type:'line',data:[2.0,2.0,2.2,2.5,3.84,6.0,10.0,12.0,14.0,16.0,18.0,19.0,19.5,19.6,20.0,22.0,20,28],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:0.15},lineStyle:{width:2.5}},
+    {name:'128Gb MLC',type:'line',data:[3.0,3.2,3.5,4.0,6.4,8.0,12.0,14.0,16.0,18.0,20.0,21.0,22.0,23.0,24.0,25.0,26,28],smooth:true,symbol:'circle',symbolSize:6,areaStyle:{opacity:0.1},lineStyle:{width:2}}
+  ]
+});
+
+rc('ch-nc2',{
+  title:{text:'NAND 合约 2021-2026',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
+  legend:{data:['128Gb MLC','64Gb MLC','32Gb MLC'],top:25,textStyle:{color:'#94a3b8'}},
+  xAxis:{type:'category',data:QS,splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}},
+  yAxis:vy('USD/颗'),
+  series:[
+    {name:'128Gb MLC',type:'line',data:nq128,smooth:true,symbol:'circle',symbolSize:5,lineStyle:{width:2.5},areaStyle:{opacity:0.08}},
+    {name:'64Gb MLC',type:'line',data:nq64,smooth:true,symbol:'circle',symbolSize:5,lineStyle:{width:2}},
+    {name:'32Gb MLC',type:'line',data:nq32,smooth:true,symbol:'circle',symbolSize:5,lineStyle:{width:1.5,type:'dashed'}}
+  ]
+});
+
+// MLC capacity decline
+rc('ch-mcap',{
+  title:{text:'全球 MLC NAND 产能指数',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
+  tooltip:{trigger:'axis',backgroundColor:'#111827',borderColor:'#1e293b',textStyle:{color:'#f1f5f9'}},
+  xAxis:{type:'category',data:['2024','2025Q1','2025Q2','2025Q3','2025Q4','2026Q1','2026Q2E'],splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}},
+  yAxis:{type:'value',name:'指数',splitLine:{lineStyle:{color:'#1e293b'}},axisLine:{show:false}},
+  series:[{name:'MLC 产能',type:'line',data:[100,95,85,72,60,48.3,48.3],smooth:true,symbol:'circle',symbolSize:8,lineStyle:{width:3},areaStyle:{color:'rgba(239,68,68,.15)'}}]
+});
+
+// AI eSSD demand
+rc('ch-essd',{
+  title:{text:'AI eSSD 需求增长 (EB/年)',left:'center',textStyle:{color:'#f1f5f9',fontSize:14}},
+  legend:{data:['2024','2025E','2026E','2027E'],top:25,textStyle:{color:'#94a3b8'}},
+  xAxis:{type:'category',data:['消费级 SSD','企业级 SSD','AI eSSD'],splitLine:{show:false},axisLine:{lineStyle:{color:'#1e293b'}}},
+  yAxis:{type:'value',name:'EB/年',splitLine:{lineStyle:{color:'#1e293b'}},axisLine:{show:false}},
+  series:[
+    {name:'2024',type:'bar',data:[4.2,8.5,2.1],itemStyle:{color:'rgba(100,116,139,.5)',borderRadius:[4,4,0,0]},barWidth:'18%'},
+    {name:'2025E',type:'bar',data:[4.5,10.2,5.8],itemStyle:{color:'rgba(245,158,11,.6)',borderRadius:[4,4,0,0]},barWidth:'18%'},
+    {name:'2026E',type:'bar',data:[4.8,12.5,14.2],itemStyle:{color:'rgba(239,68,68,.6)',borderRadius:[4,4,0,0]},barWidth:'18%'},
+    {name:'2027E',type:'bar',data:[5.0,15.0,28.5],itemStyle:{color:'rgba(139,92,246,.6)',borderRadius:[4,4,0,0]},barWidth:'18%'}
+  ],
+  grid:{left:80,right:20,top:50,bottom:40}
+});
+</script>
